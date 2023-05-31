@@ -12,4 +12,5 @@ export const validateForm = (formState) => {
   }
 
   return errors;
+  
 };

@@ -19,145 +19,145 @@ import { useNavigate } from 'react-router-dom';
 const defaultTheme = createTheme();
 
 export default function SignUp() {
-  const navigate = useNavigate();
-  const [formState, setFormState] = useState({
-    email: '',
-    password: '',
-  });
-  const [errors, setErrors] = useState({});
-  const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();
+    const [formState, setFormState] = useState({
+        email: '',
+        password: '',
+    });
+    const [errors, setErrors] = useState({});
+    const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 2000);
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setLoading(false);
+        }, 2000);
 
-    return () => clearTimeout(timer);
-  }, []);
+        return () => clearTimeout(timer);
+    }, []);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormState((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormState((prevState) => ({
+            ...prevState,
+            [name]: value,
+        }));
 
-    if (name === 'name' && errors.name) {
-      const newErrors = { ...errors };
-      delete newErrors.name;
-      setErrors(newErrors);
-    }
-  };
+        if (name === 'name' && errors.name) {
+            const newErrors = { ...errors };
+            delete newErrors.name;
+            setErrors(newErrors);
+        }
+    };
 
-  const handleRegister = async (e) => {
-    e.preventDefault();
+    const handleRegister = async (e) => {
+        e.preventDefault();
 
-    const errors = validateForm(formState);
+        const errors = validateForm(formState);
 
-    if (Object.keys(errors).length === 0) {
-      try {
-        setLoading(true);
-        await createUserWithEmailAndPassword(
-          auth,
-          formState.email,
-          formState.password
-        );
-        navigate('/home');
-      } catch (error) {
-        setErrors({ server: error.message });
-      } finally {
-        setLoading(false);
-      }
-    } else {
-      setErrors(errors);
-    }
-  };
+        if (Object.keys(errors).length === 0) {
+            try {
+                setLoading(true);
+                await createUserWithEmailAndPassword(
+                    auth,
+                    formState.email,
+                    formState.password
+                );
+                navigate('/home');
+            } catch (error) {
+                setErrors({ server: error.message });
+            } finally {
+                setLoading(false);
+            }
+        } else {
+            setErrors(errors);
+        }
+    };
 
-  return (
-    <ThemeProvider theme={defaultTheme}>
-      <CssBaseline />
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          height: '100vh',
-          background: 'purple',
-          backgroundSize: 'cover',
-        }}
-      >
-        {loading ? (
-          <CircularProgress color="secondary" />
-        ) : (
-          <Container component="main" maxWidth="xs">
+    return (
+        <ThemeProvider theme={defaultTheme}>
+            <CssBaseline />
             <Box
-              sx={{
-                marginTop: 15,
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                backgroundColor: 'rgba(255, 255, 255, 0.8)',
-                padding: '24px',
-                borderRadius: '8px',
-              }}
+                sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    height: '100vh',
+                    background: 'purple',
+                    backgroundSize: 'cover',
+                }}
             >
-              <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }} />
-              <Typography component="h1" variant="h5">
-                Sign up
-              </Typography>
-              <Box component="form" onSubmit={handleRegister} sx={{ mt: 3 }}>
-                <Grid container spacing={2}>
-                  <Grid item xs={12}>
-                    <FormControl margin="normal" fullWidth>
-                      <TextField
-                        id="email"
-                        name="email"
-                        label="Email"
-                        type="email"
-                        value={formState.email}
-                        onChange={handleChange}
-                        error={!!errors.email}
-                        helperText={errors.email}
-                      />
-                    </FormControl>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <FormControl margin="normal" fullWidth>
-                      <TextField
-                        id="password"
-                        name="password"
-                        label="Password"
-                        type="password"
-                        value={formState.password}
-                        onChange={handleChange}
-                        error={!!errors.password}
-                        helperText={errors.password}
-                      />
-                    </FormControl>
-                  </Grid>
-                </Grid>
-                <Button
-                  type="submit"
-                  fullWidth
-                  color="secondary"
-                  variant="contained"
-                  sx={{ mt: 3, mb: 2 }}
-                  disabled={loading}
-                >
-                  {loading ? 'Signing Up...' : 'Sign Up'}
-                </Button>
-                <Grid container justifyContent="flex-end">
-                  <Grid item>
-                    <Link href="/login" variant="body2" color="secondary">
-                      Already have an account? Sign in
-                    </Link>
-                  </Grid>
-                </Grid>
-              </Box>
+                {loading ? (
+                    <CircularProgress color="secondary" />
+                ) : (
+                    <Container component="main" maxWidth="xs">
+                        <Box
+                            sx={{
+                                marginTop: 15,
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center',
+                                backgroundColor: 'rgba(255, 255, 255, 0.8)',
+                                padding: '24px',
+                                borderRadius: '8px',
+                            }}
+                        >
+                            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }} />
+                            <Typography component="h1" variant="h5">
+                                Sign up
+                            </Typography>
+                            <Box component="form" onSubmit={handleRegister} sx={{ mt: 3 }}>
+                                <Grid container spacing={2}>
+                                    <Grid item xs={12}>
+                                        <FormControl margin="normal" fullWidth>
+                                            <TextField
+                                                id="email"
+                                                name="email"
+                                                label="Email"
+                                                type="email"
+                                                value={formState.email}
+                                                onChange={handleChange}
+                                                error={!!errors.email}
+                                                helperText={errors.email}
+                                            />
+                                        </FormControl>
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <FormControl margin="normal" fullWidth>
+                                            <TextField
+                                                id="password"
+                                                name="password"
+                                                label="Password"
+                                                type="password"
+                                                value={formState.password}
+                                                onChange={handleChange}
+                                                error={!!errors.password}
+                                                helperText={errors.password}
+                                            />
+                                        </FormControl>
+                                    </Grid>
+                                </Grid>
+                                <Button
+                                    type="submit"
+                                    fullWidth
+                                    color="secondary"
+                                    variant="contained"
+                                    sx={{ mt: 3, mb: 2 }}
+                                    disabled={loading}
+                                >
+                                    {loading ? 'Signing Up...' : 'Sign Up'}
+                                </Button>
+                                <Grid container justifyContent="flex-end">
+                                    <Grid item>
+                                        <Link href="/login" variant="body2" color="secondary">
+                                            Already have an account? Sign in
+                                        </Link>
+                                    </Grid>
+                                </Grid>
+                            </Box>
+                        </Box>
+                    </Container>
+                )}
             </Box>
-          </Container>
-        )}
-      </Box>
-    </ThemeProvider>
-  );
+        </ThemeProvider>
+    );
 }
